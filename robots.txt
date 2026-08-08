@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dovnaravwork.github.io/stelki-tula/sitemap.xml

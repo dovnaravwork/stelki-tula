@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background: #F3F5F2;
+    color: #16262A;
+    font-family: "Golos Text", system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 72px;
+    gap: 64px;
+  }
+  .copy { flex: 1; display: flex; flex-direction: column; gap: 28px; }
+  .eyebrow {
+    font-size: 20px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: #0F5E56;
+  }
+  h1 {
+    font-family: "Piazzolla", Georgia, serif;
+    font-size: 64px; font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  h1 em { font-style: italic; font-weight: 600; color: #0F5E56; }
+  .sub { font-size: 26px; color: #51625F; line-height: 1.4; }
+  .tg {
+    display: inline-flex; align-self: flex-start;
+    padding: 18px 34px; border-radius: 999px;
+    background: #0F5E56; color: #F3F5F2;
+    font-size: 24px; font-weight: 600;
+  }
+  .scan {
+    width: 380px; flex: none;
+    background: #FBFCFA;
+    border: 2px solid #D5DED9;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .scan-head {
+    padding: 18px 22px;
+    border-bottom: 2px dashed #D5DED9;
+    font-size: 15px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: #7C8D89;
+  }
+  .scan-view {
+    background:
+      linear-gradient(#D5DED9 1px, transparent 1px) 0 0 / 100% 38px,
+      linear-gradient(90deg, #D5DED9 1px, transparent 1px) 0 0 / 38px 100%;
+  }
+  canvas { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body>
+  <div class="copy">
+    <div class="eyebrow">Тула · индивидуальное изготовление</div>
+    <h1>Стельки, снятые <em>с&nbsp;вашей стопы</em></h1>
+    <div class="sub">Диагностика, формовка по стопе, подгонка под вашу обувь</div>
+    <div class="tg">Запись: @Ol_Kim_E</div>
+  </div>
+  <figure class="scan">
+    <figcaption class="scan-head">Карта давления</figcaption>
+    <div class="scan-view"><canvas id="plantogram" width="640" height="560"></canvas></div>
+  </figure>
+<script src="app.js"></script>
+</body>
+</html>
