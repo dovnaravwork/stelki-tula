@@ -105,6 +105,20 @@ class SiteBuildTest(unittest.TestCase):
         self.assertIn('href="../"', html)
         self.assertIn("https://t.me/Ol_Kim_E", html)
 
+    def test_insole_page_presents_current_offer_and_real_work_photos(self) -> None:
+        html = self.home_page.read_text(encoding="utf-8")
+
+        self.assertIn("Бескаркасные стельки", html)
+        self.assertIn("от 3 000 ₽", html)
+        self.assertIn("1 бесплатная коррекция", html)
+        self.assertIn("в течение 3 месяцев", html)
+        self.assertEqual(html.count('class="work-photo"'), 3)
+        self.assertIn('alt="Индивидуальные стельки на стопах, вид спереди"', html)
+        self.assertIn('alt="Стельки с индивидуальными корректирующими элементами"', html)
+        self.assertIn('alt="Посадка индивидуальной стельки, вид сбоку"', html)
+        self.assertIn("assets/certificate-lower-limb-insoles.webp", html)
+        self.assertNotIn("Здесь появятся фотографии", html)
+
     def test_generated_files_match_committed_github_pages_outputs(self) -> None:
         for relative_path in (
             Path("index.html"),
