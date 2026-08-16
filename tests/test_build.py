@@ -219,7 +219,10 @@ class SiteBuildTest(unittest.TestCase):
             re.DOTALL,
         )
 
-        self.assertEqual(html.count("work-card--feature"), 1)
+        self.assertEqual(
+            html.count('class="work-card work-card--feature reveal"'),
+            1,
+        )
         self.assertIsNotNone(feature_rule)
         self.assertRegex(feature_rule.group("body"), r"grid-row:\s*span\s+2\s*;")
 
