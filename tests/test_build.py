@@ -199,6 +199,17 @@ class SiteBuildTest(unittest.TestCase):
         self.assertIsNotNone(document_image_rule)
         self.assertRegex(document_image_rule.group("body"), r"object-fit:\s*contain\s*;")
 
+    def test_insole_credential_preview_is_not_cropped(self) -> None:
+        css = (ROOT / "src/styles.css").read_text(encoding="utf-8")
+        document_image_rule = re.search(
+            r"\.insole-credential\s*>\s*img\s*\{(?P<body>.*?)\}",
+            css,
+            re.DOTALL,
+        )
+
+        self.assertIsNotNone(document_image_rule)
+        self.assertRegex(document_image_rule.group("body"), r"object-fit:\s*contain\s*;")
+
     def test_artromot_rental_is_paired_with_the_avito_review(self) -> None:
         html = self.rehab_page.read_text(encoding="utf-8")
         section_start = html.index('id="artromot"')
