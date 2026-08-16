@@ -285,6 +285,49 @@ a { color: var(--accent); }
   display: inline-block;
 }
 
+/* ============ current offer ============ */
+.offer-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: var(--line);
+}
+
+.offer-item {
+  min-width: 0;
+  padding: clamp(28px, 4vw, 44px);
+  background: var(--surface-2);
+}
+
+.offer-item-accent { background: var(--surface); }
+
+.offer-main {
+  margin-top: 8px;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.offer-main strong {
+  font-family: "Piazzolla", Georgia, serif;
+  font-weight: 700;
+}
+
+.offer-note {
+  max-width: 38em;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 /* ============ sections ============ */
 .section { padding: clamp(48px, 7vw, 88px) 0; border-top: 1px solid var(--line); }
 
@@ -329,7 +372,7 @@ a { color: var(--accent); }
 /* --- process --- */
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   margin: 0;
   padding: 0;
@@ -386,33 +429,87 @@ a { color: var(--accent); }
 
 .compare td.hl { background: color-mix(in srgb, var(--accent) 7%, transparent); font-weight: 500; }
 
-/* --- gallery placeholders --- */
+/* --- work gallery --- */
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 
-.ph {
-  aspect-ratio: 4 / 3;
-  border: 1px dashed var(--contour);
+.work-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
   border-radius: 12px;
-  background:
-    repeating-linear-gradient(-45deg, transparent 0 14px, color-mix(in srgb, var(--contour) 26%, transparent) 14px 15px);
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
-.ph span {
-  font-size: 12px;
+.work-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.work-card figcaption {
+  min-height: 72px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--faint);
+}
+
+.insole-credential {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  max-width: 640px;
+  margin-top: 20px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.insole-credential:hover {
+  border-color: var(--contour);
+  transform: translateY(-2px);
+}
+
+.insole-credential > img {
+  display: block;
+  width: 112px;
+  height: 144px;
+  object-fit: cover;
+  object-position: top;
+  border-right: 1px solid var(--line);
+}
+
+.insole-credential > span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  padding: 18px 20px;
+}
+
+.insole-credential small {
+  color: var(--faint);
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--faint);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 12px;
 }
 
-.gallery-note { margin-top: 16px; font-size: 14px; color: var(--faint); }
+.insole-credential strong { line-height: 1.35; }
+
+.insole-credential b {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
 
 /* --- faq --- */
 .faq { max-width: 760px; display: flex; flex-direction: column; }
@@ -520,9 +617,13 @@ a { color: var(--accent); }
 }
 
 @media (max-width: 560px) {
-  .ind-grid, .steps, .gallery { grid-template-columns: 1fr; }
+  .offer-grid, .ind-grid, .steps, .gallery { grid-template-columns: 1fr; }
   .head-links a.vk-head { display: none; }
   .btn { width: 100%; justify-content: center; }
   .site-head .wrap { flex-wrap: wrap; justify-content: center; }
   .scan-head, .scan-foot { flex-wrap: wrap; }
+  .work-card figcaption { min-height: auto; }
+  .insole-credential { grid-template-columns: 88px minmax(0, 1fr); }
+  .insole-credential > img { width: 88px; height: 132px; }
+  .insole-credential > span { padding: 14px 16px; }
 }

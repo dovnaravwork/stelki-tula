@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Индивидуальные ортопедические стельки в Туле — изготовление по стопе</title>
-<meta name="description" content="Индивидуальные ортопедические стельки в Туле: осмотр стопы, формовка по вашей стопе, подгонка под обувь и коррекция после носки. Запись у мастера Олега Ефимова.">
+<title>Индивидуальные бескаркасные стельки в Туле — от 3 000 ₽</title>
+<meta name="description" content="Индивидуальные бескаркасные стельки в Туле: осмотр стопы, термоформирование, подгонка под обувь и одна бесплатная коррекция в течение 3 месяцев. Изготовление — от 3 000 ₽.">
 <link rel="canonical" href="https://dovnaravwork.github.io/stelki-tula/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="Индивидуальные ортопедические стельки в Туле — изготовление по стопе">
-<meta property="og:description" content="Индивидуальные ортопедические стельки в Туле: осмотр стопы, формовка по вашей стопе, подгонка под обувь и коррекция после носки. Запись у мастера Олега Ефимова.">
+<meta property="og:title" content="Индивидуальные бескаркасные стельки в Туле — от 3 000 ₽">
+<meta property="og:description" content="Индивидуальные бескаркасные стельки в Туле: осмотр стопы, термоформирование, подгонка под обувь и одна бесплатная коррекция в течение 3 месяцев. Изготовление — от 3 000 ₽.">
 <meta property="og:url" content="https://dovnaravwork.github.io/stelki-tula/">
 <meta property="og:image" content="https://dovnaravwork.github.io/stelki-tula/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,8 +24,9 @@
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Индивидуальные ортопедические стельки — мастер Олег Ефимов",
-  "description": "Индивидуальные ортопедические стельки в Туле: осмотр стопы, формовка по вашей стопе, подгонка под обувь и коррекция после носки. Запись у мастера Олега Ефимова.",
+  "description": "Индивидуальные бескаркасные стельки в Туле: осмотр стопы, термоформирование, подгонка под обувь и одна бесплатная коррекция в течение 3 месяцев. Изготовление — от 3 000 ₽.",
   "url": "https://dovnaravwork.github.io/stelki-tula/",
+  "priceRange": "от 3 000 ₽",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Тула",
@@ -34,7 +35,14 @@
   "sameAs": [
     "https://t.me/Ol_Kim_E",
     "https://vk.ru/olegevgenievih"
-  ]
+  ],
+  "makesOffer": {
+    "@type": "Offer",
+    "name": "Изготовление одной пары индивидуальных бескаркасных стелек",
+    "price": "3000",
+    "priceCurrency": "RUB",
+    "description": "Осмотр стоп и нижних конечностей, изготовление одной пары и одна бесплатная коррекция в течение 3 месяцев."
+  }
 }
 </script>
 <style>
@@ -362,6 +370,49 @@ a { color: var(--accent); }
   display: inline-block;
 }
 
+/* ============ current offer ============ */
+.offer-strip {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: var(--line);
+}
+
+.offer-item {
+  min-width: 0;
+  padding: clamp(28px, 4vw, 44px);
+  background: var(--surface-2);
+}
+
+.offer-item-accent { background: var(--surface); }
+
+.offer-main {
+  margin-top: 8px;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.offer-main strong {
+  font-family: "Piazzolla", Georgia, serif;
+  font-weight: 700;
+}
+
+.offer-note {
+  max-width: 38em;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
 /* ============ sections ============ */
 .section { padding: clamp(48px, 7vw, 88px) 0; border-top: 1px solid var(--line); }
 
@@ -406,7 +457,7 @@ a { color: var(--accent); }
 /* --- process --- */
 .steps {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   margin: 0;
   padding: 0;
@@ -463,33 +514,87 @@ a { color: var(--accent); }
 
 .compare td.hl { background: color-mix(in srgb, var(--accent) 7%, transparent); font-weight: 500; }
 
-/* --- gallery placeholders --- */
+/* --- work gallery --- */
 .gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 
-.ph {
-  aspect-ratio: 4 / 3;
-  border: 1px dashed var(--contour);
+.work-card {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
   border-radius: 12px;
-  background:
-    repeating-linear-gradient(-45deg, transparent 0 14px, color-mix(in srgb, var(--contour) 26%, transparent) 14px 15px);
-  display: flex;
-  align-items: flex-end;
-  padding: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
-.ph span {
-  font-size: 12px;
+.work-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: var(--surface-2);
+}
+
+.work-card figcaption {
+  min-height: 72px;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--faint);
+}
+
+.insole-credential {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  max-width: 640px;
+  margin-top: 20px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 120ms ease, transform 120ms ease;
+}
+
+.insole-credential:hover {
+  border-color: var(--contour);
+  transform: translateY(-2px);
+}
+
+.insole-credential > img {
+  display: block;
+  width: 112px;
+  height: 144px;
+  object-fit: cover;
+  object-position: top;
+  border-right: 1px solid var(--line);
+}
+
+.insole-credential > span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  padding: 18px 20px;
+}
+
+.insole-credential small {
+  color: var(--faint);
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--faint);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 12px;
 }
 
-.gallery-note { margin-top: 16px; font-size: 14px; color: var(--faint); }
+.insole-credential strong { line-height: 1.35; }
+
+.insole-credential b {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
 
 /* --- faq --- */
 .faq { max-width: 760px; display: flex; flex-direction: column; }
@@ -597,11 +702,15 @@ a { color: var(--accent); }
 }
 
 @media (max-width: 560px) {
-  .ind-grid, .steps, .gallery { grid-template-columns: 1fr; }
+  .offer-grid, .ind-grid, .steps, .gallery { grid-template-columns: 1fr; }
   .head-links a.vk-head { display: none; }
   .btn { width: 100%; justify-content: center; }
   .site-head .wrap { flex-wrap: wrap; justify-content: center; }
   .scan-head, .scan-foot { flex-wrap: wrap; }
+  .work-card figcaption { min-height: auto; }
+  .insole-credential { grid-template-columns: 88px minmax(0, 1fr); }
+  .insole-credential > img { width: 88px; height: 132px; }
+  .insole-credential > span { padding: 14px 16px; }
 }
 
 </style>
@@ -629,17 +738,17 @@ a { color: var(--accent); }
   <section class="hero" aria-labelledby="hero-heading">
     <div class="wrap">
       <div class="hero-copy">
-        <p class="eyebrow">Тула · индивидуальное изготовление</p>
-        <h1 id="hero-heading">Стельки, снятые <em>с&nbsp;вашей стопы</em></h1>
-        <p class="lede">Не «примерно ваш размер» из аптеки, а опора, повторяющая форму именно вашей стопы: с осмотром стопы перед изготовлением и подгонкой под вашу обувь.</p>
+        <p class="eyebrow">Тула · бескаркасная технология</p>
+        <h1 id="hero-heading">Бескаркасные стельки <em>по&nbsp;вашей стопе</em></h1>
+        <p class="lede">Материал разогревается и формуется непосредственно по стопе. Без жёсткой пластины и универсальной формы: поддержку можно точно настроить и скорректировать после начала носки.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://t.me/Ol_Kim_E" target="_blank" rel="noopener">Записаться в Telegram</a>
           <a class="btn btn-ghost" href="https://vk.ru/olegevgenievih" target="_blank" rel="noopener">Страница ВКонтакте</a>
         </div>
         <ul class="hero-notes">
-          <li><span class="dot"></span>Осмотр стопы перед изготовлением</li>
-          <li><span class="dot"></span>Формовка по вашей стопе</li>
-          <li><span class="dot"></span>Коррекция стелек после носки</li>
+          <li><span class="dot"></span>Изготовление — от 3 000 ₽</li>
+          <li><span class="dot"></span>Термоформирование по стопе</li>
+          <li><span class="dot"></span>1 бесплатная коррекция</li>
         </ul>
       </div>
 
@@ -659,43 +768,58 @@ a { color: var(--accent); }
     </div>
   </section>
 
+  <section class="offer-strip" id="price" aria-label="Стоимость и условия коррекции">
+    <div class="wrap offer-grid">
+      <div class="offer-item">
+        <p class="eyebrow">Стоимость</p>
+        <p class="offer-main"><strong>от 3 000 ₽</strong> за одну пару</p>
+        <p class="offer-note">Осмотр стоп и нижних конечностей, изготовление и первичная настройка включены.</p>
+      </div>
+      <div class="offer-item offer-item-accent">
+        <p class="eyebrow">После изготовления</p>
+        <p class="offer-main"><strong>1 бесплатная коррекция</strong> в течение 3 месяцев</p>
+        <p class="offer-note">Если при использовании появится дискомфорт, мастер повторно проверит посадку и скорректирует стельки.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="section" aria-labelledby="ind-heading">
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Показания</p>
-        <h2 id="ind-heading">Когда нужны индивидуальные стельки</h2>
-        <p class="sub">Стопа — фундамент всего тела. Когда опора распределена неправильно, страдают не только ступни, но и колени, таз и спина.</p>
+        <h2 id="ind-heading">Когда стоит проверить опору стопы</h2>
+        <p class="sub">Положение стопы влияет на распределение нагрузки при ходьбе. При боли, хронических заболеваниях и выраженной деформации сначала проконсультируйтесь с врачом.</p>
       </div>
       <div class="ind-grid">
         <article class="ind-card reveal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 17c3-1 5-4 5-8m0 0c0 6 4 9 11 8M9 9V5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
           <h3>Плоскостопие</h3>
-          <p>Свод стопы перестаёт пружинить — ноги устают и гудят даже после обычного дня.</p>
+          <p>Индивидуальная форма помогает поддержать своды и распределить нагрузку по площади стопы.</p>
         </article>
         <article class="ind-card reveal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v9m0 0-3.5-3.5M12 13l3.5-3.5M5 20h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <h3>Боль в пятке, шпора</h3>
-          <p>Правильная разгрузка пятки снимает давление с болезненной точки при каждом шаге.</p>
+          <h3>Боль в стопе и голеностопе</h3>
+          <p>При осмотре можно определить зоны перегрузки и учесть их при настройке стельки.</p>
         </article>
         <article class="ind-card reveal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 19c2.5 0 3.5-2 5-5s3-7 6-7c2.5 0 4 2 5 4M4 19h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          <h3>Спорт и бег</h3>
-          <p>Стабильная постановка стопы — меньше ударной нагрузки на суставы и риска травм.</p>
+          <h3>Колени, таз и спина</h3>
+          <p>Опора стопы рассматривается вместе с положением нижних конечностей и особенностями походки.</p>
         </article>
         <article class="ind-card reveal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4c2 0 3.5 1.5 3.5 4 0 2-.8 3-1.5 4.2-.7 1.1-1.2 2-1.2 3.3 0 1.5-.9 2.5-2.1 2.5S5.5 17 5.5 15.5c0-1.7.6-2.8 1.3-4C7.4 10.3 8 9.2 8 7.5M18 15.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <h3>Детская стопа</h3>
-          <p>Стопа ребёнка формируется до подросткового возраста — поддержать её вовремя проще, чем исправлять потом.</p>
+          <h3>Вальгус и варус</h3>
+          <p>Форма и корректирующие элементы настраиваются с учётом направления заваливания стопы.</p>
         </article>
         <article class="ind-card reveal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6v6l4 2m5-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
-          <h3>Работа «на ногах»</h3>
-          <p>Смена за прилавком, у станка или в цеху — стельки распределяют нагрузку на весь день.</p>
+          <h3>Разная длина ног</h3>
+          <p>При подтверждённой разнице высоту можно учитывать подпяточником по рекомендации специалиста.</p>
         </article>
         <article class="ind-card reveal">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20V10m0 0c0-3 2-5 5-5M12 10c0-3-2-5-5-5m5 15c0-3 2-5 5-5m-10 0c3 0 5 2 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <h3>Колени и поясница</h3>
-          <p>Перекос в опоре поднимается вверх по цепочке: стопа → колено → таз → спина. Начинать стоит с фундамента.</p>
+          <h3>Работа и спорт</h3>
+          <p>Длительное стояние, ходьба и тренировки требуют разной настройки опоры и подбора под обувь.</p>
         </article>
       </div>
     </div>
@@ -706,28 +830,33 @@ a { color: var(--accent); }
       <div class="section-head">
         <p class="eyebrow">Процесс</p>
         <h2 id="proc-heading">Как проходит изготовление</h2>
-        <p class="sub">Стельки делаются не «по слепку из каталога», а по вашей стопе — от осмотра до контроля после носки.</p>
+        <p class="sub">От разговора о нагрузках и привычной обуви до проверки результата после начала носки.</p>
       </div>
       <ol class="steps">
         <li class="step reveal">
           <span class="num">1</span>
-          <h3>Осмотр</h3>
-          <p>Мастер осматривает стопы, оценивает своды и постановку, разбирает жалобы: где болит и когда.</p>
+          <h3>Консультация и осмотр</h3>
+          <p>Обсуждаем жалобы, образ жизни, нагрузки и обувь. Мастер оценивает стопы и положение нижних конечностей.</p>
         </li>
         <li class="step reveal">
           <span class="num">2</span>
-          <h3>Формовка</h3>
-          <p>Основа стельки формуется по вашей стопе — с учётом сводов, зон перегрузки и особенностей походки.</p>
+          <h3>Оценка опоры</h3>
+          <p>Проверяем походку, работу стопы и мышц, чтобы понять, где именно требуется поддержка.</p>
         </li>
         <li class="step reveal">
           <span class="num">3</span>
-          <h3>Подгонка</h3>
-          <p>Стельки подгоняются под обувь, которую вы реально носите, — от кроссовок до рабочих ботинок.</p>
+          <h3>Термоформирование</h3>
+          <p>Разогретый материал формуется непосредственно по стопе и подгоняется под вашу обувь.</p>
         </li>
         <li class="step reveal">
           <span class="num">4</span>
-          <h3>Коррекция</h3>
-          <p>После первых недель носки стельки можно скорректировать — стопа «рассказывает», что ей нужно.</p>
+          <h3>Точечная настройка</h3>
+          <p>Добавляем корректирующие элементы в нужные зоны, регулируя распределение нагрузки.</p>
+        </li>
+        <li class="step reveal">
+          <span class="num">5</span>
+          <h3>Адаптация и контроль</h3>
+          <p>Вы получаете рекомендации по привыканию и можете прийти на бесплатную коррекцию в течение 3 месяцев.</p>
         </li>
       </ol>
     </div>
@@ -737,7 +866,7 @@ a { color: var(--accent); }
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Сравнение</p>
-        <h2 id="cmp-heading">Чем отличаются от готовых из аптеки</h2>
+        <h2 id="cmp-heading">Почему бескаркасные стельки удобно настраивать</h2>
       </div>
       <div class="compare-scroll">
         <table class="compare">
@@ -767,7 +896,12 @@ a { color: var(--accent); }
             <tr>
               <td>После покупки</td>
               <td>Не подошли — в ящик</td>
-              <td class="hl">Коррекция у мастера после носки</td>
+              <td class="hl">Можно изменить элементы и угол поддержки</td>
+            </tr>
+            <tr>
+              <td>Каркас</td>
+              <td>Фиксированная форма и жёсткость</td>
+              <td class="hl">Без жёсткой пластины, форма задаётся материалом</td>
             </tr>
           </tbody>
         </table>
@@ -779,14 +913,31 @@ a { color: var(--accent); }
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Мастерская</p>
-        <h2 id="gal-heading">Работы мастера</h2>
+        <h2 id="gal-heading">Стельки и посадка на стопе</h2>
+        <p class="sub">Реальные примеры индивидуальных стелек с корректирующими элементами.</p>
       </div>
       <div class="gallery">
-        <div class="ph reveal"><span>Фото · осмотр стопы</span></div>
-        <div class="ph reveal"><span>Фото · формовка</span></div>
-        <div class="ph reveal"><span>Фото · готовые стельки</span></div>
+        <figure class="work-card reveal">
+          <img class="work-photo" src="assets/insoles-fitted-front.webp" width="720" height="960" loading="lazy" decoding="async" alt="Индивидуальные стельки на стопах, вид спереди">
+          <figcaption>Проверка положения стоп на готовых стельках</figcaption>
+        </figure>
+        <figure class="work-card reveal">
+          <img class="work-photo" src="assets/insoles-corrections.webp" width="806" height="960" loading="lazy" decoding="async" alt="Стельки с индивидуальными корректирующими элементами">
+          <figcaption>Примеры форм и точечных корректирующих элементов</figcaption>
+        </figure>
+        <figure class="work-card reveal">
+          <img class="work-photo" src="assets/insoles-fitted-side.webp" width="720" height="960" loading="lazy" decoding="async" alt="Посадка индивидуальной стельки, вид сбоку">
+          <figcaption>Контроль посадки и поддержки свода</figcaption>
+        </figure>
       </div>
-      <p class="gallery-note">Здесь появятся фотографии из мастерской — процесс и готовые работы.</p>
+      <a class="insole-credential" href="assets/certificate-lower-limb-insoles.webp" target="_blank" rel="noopener">
+        <img src="assets/certificate-lower-limb-insoles.webp" width="688" height="960" loading="lazy" decoding="async" alt="Сертификат Олега Ефимова по реабилитации нижней конечности и изготовлению стелек">
+        <span>
+          <small>Подготовка специалиста</small>
+          <strong>Реабилитация нижней конечности и изготовление стелек</strong>
+          <b>Открыть сертификат ↗</b>
+        </span>
+      </a>
     </div>
   </section>
 
@@ -806,16 +957,16 @@ a { color: var(--accent); }
           <p class="answer">Записаться можно напрямую. При болях, хронических заболеваниях и для детей рекомендуем предварительно проконсультироваться с врачом-ортопедом — его заключение поможет мастеру точнее учесть назначения.</p>
         </details>
         <details>
-          <summary>Можно ли делать стельки детям?<span class="mark" aria-hidden="true">+</span></summary>
-          <p class="answer">Можно и часто особенно нужно: детская стопа ещё формируется, и правильная опора в этот период важнее всего. Стельки для растущей стопы периодически корректируются или обновляются.</p>
+          <summary>Что значит «бескаркасные»?<span class="mark" aria-hidden="true">+</span></summary>
+          <p class="answer">В стельке нет жёсткой пластины, которая задаёт одну неизменную форму. Поддержка создаётся геометрией и плотностью материала, а точечные элементы можно менять при коррекции.</p>
         </details>
         <details>
-          <summary>Сколько служат индивидуальные стельки?<span class="mark" aria-hidden="true">+</span></summary>
-          <p class="answer">Зависит от материалов и интенсивности носки — обычно от года и дольше. Плюс индивидуальных в том, что их можно корректировать у мастера, а не покупать новые при каждом изменении.</p>
+          <summary>Что входит в бесплатную коррекцию?<span class="mark" aria-hidden="true">+</span></summary>
+          <p class="answer">В течение 3 месяцев после изготовления можно один раз бесплатно проверить посадку и при необходимости изменить форму или корректирующие элементы стельки.</p>
         </details>
         <details>
           <summary>Сколько это стоит и как долго ждать?<span class="mark" aria-hidden="true">+</span></summary>
-          <p class="answer">Цена и сроки зависят от задачи и материалов. Напишите мастеру в Telegram — он сориентирует по вашей ситуации до записи.</p>
+          <p class="answer">Осмотр стоп и нижних конечностей, изготовление одной пары и одна коррекция стоят от 3 000 ₽. Точный срок Олег назовёт при записи с учётом вашей задачи.</p>
         </details>
       </div>
     </div>
@@ -827,7 +978,7 @@ a { color: var(--accent); }
         <div>
           <p class="eyebrow eyebrow-panel">Запись · Тула</p>
           <h2 id="contact-heading">Начните с осмотра</h2>
-          <p class="sub">Напишите мастеру — Олег ответит, сориентирует по вашей ситуации и предложит время. Первая встреча — это разговор и осмотр, а не обязательство.</p>
+          <p class="sub">Напишите мастеру — Олег уточнит вашу задачу, подскажет, какую обувь взять, и предложит время. Изготовление одной пары — от 3 000 ₽, одна коррекция в течение 3 месяцев включена.</p>
         </div>
         <div class="contact-links">
           <a href="https://t.me/Ol_Kim_E" target="_blank" rel="noopener">
