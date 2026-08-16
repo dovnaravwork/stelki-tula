@@ -188,6 +188,17 @@ class SiteBuildTest(unittest.TestCase):
         self.assertIn("520 часов", html)
         self.assertIn("506 часов", html)
 
+    def test_rehabilitation_document_previews_are_not_cropped(self) -> None:
+        css = (ROOT / "src/rehabilitation.css").read_text(encoding="utf-8")
+        document_image_rule = re.search(
+            r"\.credential-link\s*>\s*img\s*\{(?P<body>.*?)\}",
+            css,
+            re.DOTALL,
+        )
+
+        self.assertIsNotNone(document_image_rule)
+        self.assertRegex(document_image_rule.group("body"), r"object-fit:\s*contain\s*;")
+
     def test_artromot_rental_is_paired_with_the_avito_review(self) -> None:
         html = self.rehab_page.read_text(encoding="utf-8")
         section_start = html.index('id="artromot"')
