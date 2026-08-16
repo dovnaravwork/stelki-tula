@@ -1,74 +1,162 @@
 #!/usr/bin/env python3
-"""Собирает index.html из src/. Запуск: python3 build.py"""
+"""Собирает статические страницы из src/. Запуск: python3 build.py."""
+
+import json
 import pathlib
 
+
 ROOT = pathlib.Path(__file__).parent
-SITE_URL = 'https://dovnaravwork.github.io/stelki-tula/'
-TITLE = 'Индивидуальные ортопедические стельки в Туле — изготовление по стопе'
-DESCRIPTION = ('Индивидуальные ортопедические стельки в Туле: осмотр стопы, '
-               'формовка по вашей стопе, подгонка под обувь и коррекция стелек после носки. '
-               'Запись у мастера в Telegram.')
+BASE_URL = "https://dovnaravwork.github.io/stelki-tula/"
 
-fonts = (ROOT / 'src/fonts-local.css').read_text()
-styles = (ROOT / 'src/styles.css').read_text()
-page = (ROOT / 'src/page.html').read_text()
-js = (ROOT / 'src/app.js').read_text()
+FONTS = (ROOT / "src/fonts-local.css").read_text(encoding="utf-8")
+BASE_STYLES = (ROOT / "src/styles.css").read_text(encoding="utf-8")
+APP_JS = (ROOT / "src/app.js").read_text(encoding="utf-8")
 
-jsonld = f'''{{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Индивидуальные ортопедические стельки — мастер Олег",
-  "description": "{DESCRIPTION}",
-  "url": "{SITE_URL}",
-  "address": {{
-    "@type": "PostalAddress",
-    "addressLocality": "Тула",
-    "addressCountry": "RU"
-  }},
-  "sameAs": [
-    "https://t.me/Ol_Kim_E",
-    "https://vk.ru/olegevgenievih"
-  ]
-}}'''
 
-html = f'''<!doctype html>
+def render_page(
+    *,
+    title: str,
+    description: str,
+    canonical_url: str,
+    og_image_url: str,
+    page_html: str,
+    styles: str,
+    jsonld: dict,
+    asset_prefix: str = "",
+) -> str:
+    fonts = FONTS.replace("url(fonts/", f"url({asset_prefix}fonts/")
+    structured_data = json.dumps(jsonld, ensure_ascii=False, indent=2)
+
+    return f'''<!doctype html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{TITLE}</title>
-<meta name="description" content="{DESCRIPTION}">
-<link rel="canonical" href="{SITE_URL}">
+<title>{title}</title>
+<meta name="description" content="{description}">
+<link rel="canonical" href="{canonical_url}">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="{TITLE}">
-<meta property="og:description" content="{DESCRIPTION}">
-<meta property="og:url" content="{SITE_URL}">
-<meta property="og:image" content="{SITE_URL}og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical_url}">
+<meta property="og:image" content="{og_image_url}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F3F5F2">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D1719">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preload" href="fonts/piazzolla-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/golostext-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="{asset_prefix}favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{asset_prefix}apple-touch-icon.png">
+<link rel="preload" href="{asset_prefix}fonts/piazzolla-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset_prefix}fonts/golostext-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
-{jsonld}
+{structured_data}
 </script>
 <style>
 {fonts}
+{BASE_STYLES}
 {styles}</style>
 <noscript><style>.reveal {{ opacity: 1 !important; transform: none !important; }}</style></noscript>
 </head>
 <body>
-{page}
+{page_html}
 <script>
-{js}</script>
+{APP_JS}</script>
 </body>
 </html>
 '''
 
-(ROOT / 'index.html').write_text(html)
-print(f'index.html: {len(html.splitlines())} lines, {len(html.encode()) / 1024:.0f} KB')
+
+def write_page(path: pathlib.Path, html: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(html, encoding="utf-8")
+    relative_path = path.relative_to(ROOT)
+    print(
+        f"{relative_path}: {len(html.splitlines())} lines, "
+        f"{len(html.encode()) / 1024:.0f} KB"
+    )
+
+
+insole_title = "Индивидуальные ортопедические стельки в Туле — изготовление по стопе"
+insole_description = (
+    "Индивидуальные ортопедические стельки в Туле: осмотр стопы, "
+    "формовка по вашей стопе, подгонка под обувь и коррекция после носки. "
+    "Запись у мастера Олега Ефимова."
+)
+insole_jsonld = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Индивидуальные ортопедические стельки — мастер Олег Ефимов",
+    "description": insole_description,
+    "url": BASE_URL,
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Тула",
+        "addressCountry": "RU",
+    },
+    "sameAs": [
+        "https://t.me/Ol_Kim_E",
+        "https://vk.ru/olegevgenievih",
+    ],
+}
+insole_html = render_page(
+    title=insole_title,
+    description=insole_description,
+    canonical_url=BASE_URL,
+    og_image_url=f"{BASE_URL}og.png",
+    page_html=(ROOT / "src/page.html").read_text(encoding="utf-8"),
+    styles="",
+    jsonld=insole_jsonld,
+)
+write_page(ROOT / "index.html", insole_html)
+
+
+rehab_url = f"{BASE_URL}reabilitaciya/"
+rehab_title = "Физическая реабилитация в Туле — Олег Ефимов"
+rehab_description = (
+    "Индивидуальные занятия по физической реабилитации в Туле после травм "
+    "и операций, при ограничении движений и хронической боли. ЛФК, массаж, "
+    "суставные мобилизации, кинезиотейпирование и аренда Артромота."
+)
+rehab_jsonld = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Индивидуальная физическая реабилитация",
+    "description": rehab_description,
+    "url": rehab_url,
+    "serviceType": "Физическая реабилитация",
+    "areaServed": {"@type": "City", "name": "Тула"},
+    "provider": {
+        "@type": "Person",
+        "name": "Олег Ефимов",
+        "sameAs": [
+            "https://t.me/Ol_Kim_E",
+            "https://vk.ru/olegevgenievih",
+        ],
+    },
+}
+rehab_html = render_page(
+    title=rehab_title,
+    description=rehab_description,
+    canonical_url=rehab_url,
+    og_image_url=f"{BASE_URL}assets/oleg-efimov.jpg",
+    page_html=(ROOT / "src/rehabilitation.html").read_text(encoding="utf-8"),
+    styles=(ROOT / "src/rehabilitation.css").read_text(encoding="utf-8"),
+    jsonld=rehab_jsonld,
+    asset_prefix="../",
+)
+write_page(ROOT / "reabilitaciya/index.html", rehab_html)
+
+
+sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>{BASE_URL}</loc>
+    <lastmod>2026-08-16</lastmod>
+  </url>
+  <url>
+    <loc>{rehab_url}</loc>
+    <lastmod>2026-08-16</lastmod>
+  </url>
+</urlset>
+'''
+(ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")

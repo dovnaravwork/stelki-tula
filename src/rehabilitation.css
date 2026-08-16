@@ -1,0 +1,499 @@
+/* ============ rehabilitation landing ============ */
+.rehab-hero {
+  padding: clamp(44px, 7vw, 92px) 0 clamp(52px, 8vw, 100px);
+}
+
+.rehab-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.72fr);
+  gap: clamp(36px, 6vw, 82px);
+  align-items: center;
+}
+
+.rehab-hero-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.rehab-hero h1 {
+  font-size: clamp(40px, 5.6vw, 66px);
+  font-weight: 700;
+  max-width: 12em;
+}
+
+.rehab-hero h1 em {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.rehab-hero .lede {
+  max-width: 39em;
+  color: var(--muted);
+  font-size: clamp(17px, 1.6vw, 19px);
+}
+
+.profile-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 30px;
+  margin: 4px 0 0;
+}
+
+.profile-proof div {
+  display: grid;
+  gap: 1px;
+}
+
+.profile-proof dt {
+  color: var(--ink);
+  font-family: "Piazzolla", Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profile-proof dd {
+  margin: 0;
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.specialist-card {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.portrait-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.portrait-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.portrait-stamp {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(-7deg);
+  box-shadow: 0 8px 24px rgba(15, 94, 86, 0.28);
+}
+
+.specialist-card figcaption {
+  display: grid;
+  gap: 4px;
+  padding: 18px 20px 20px;
+}
+
+.specialist-card figcaption strong {
+  color: var(--ink);
+  font-family: "Piazzolla", Georgia, serif;
+  font-size: 22px;
+}
+
+.specialist-card figcaption span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* --- situations --- */
+.service-intro {
+  background: color-mix(in srgb, var(--surface) 48%, transparent);
+}
+
+.rehab-case-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.rehab-case {
+  min-height: 210px;
+  padding: 24px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.case-index {
+  display: block;
+  margin-bottom: 32px;
+  color: var(--accent);
+  font-family: "Piazzolla", Georgia, serif;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rehab-case h3 {
+  margin-bottom: 9px;
+  font-family: "Golos Text", system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.rehab-case p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* --- recovery path --- */
+.recovery-section { overflow: hidden; }
+
+.recovery-path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--contour);
+}
+
+.recovery-step {
+  position: relative;
+  padding: 42px 26px 0 0;
+}
+
+.recovery-step::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--paper);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.recovery-number {
+  display: block;
+  margin-bottom: 42px;
+  color: var(--accent);
+  font-family: "Piazzolla", Georgia, serif;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.recovery-step h3 {
+  margin-bottom: 10px;
+  font-family: "Golos Text", system-ui, sans-serif;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+
+.recovery-step p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* --- methods --- */
+.methods-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(36px, 7vw, 100px);
+  align-items: start;
+}
+
+.methods-heading { margin-bottom: 0; }
+
+.method-list {
+  border-top: 1px solid var(--line);
+}
+
+.method-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.7fr) minmax(0, 1.3fr);
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.method-row h3 {
+  font-family: "Golos Text", system-ui, sans-serif;
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+.method-row p {
+  color: var(--muted);
+  font-size: 15px;
+}
+
+/* --- credentials --- */
+.qualifications { background: var(--surface-2); }
+
+.credential-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.credential-link {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(128px, 0.72fr) minmax(0, 1.28fr);
+  min-height: 270px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  transition: border-color 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+}
+
+.credential-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--contour);
+  box-shadow: var(--shadow);
+}
+
+.credential-link > img {
+  width: 100%;
+  height: 100%;
+  min-height: 270px;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  border-right: 1px solid var(--line);
+}
+
+.credential-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+}
+
+.credential-copy small {
+  margin-bottom: 14px;
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.credential-copy strong {
+  font-family: "Piazzolla", Georgia, serif;
+  font-size: 21px;
+  line-height: 1.2;
+}
+
+.credential-copy > span {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.credential-copy b {
+  margin-top: auto;
+  padding-top: 20px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* --- Artromot and Avito review --- */
+.artromot-section {
+  background: var(--panel);
+  color: var(--panel-ink);
+}
+
+.artromot-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 1.1fr);
+  gap: clamp(44px, 8vw, 112px);
+  align-items: center;
+}
+
+.artromot-copy h2 {
+  margin-top: 10px;
+  font-size: clamp(30px, 4vw, 46px);
+}
+
+.artromot-lede {
+  max-width: 35em;
+  margin-top: 18px;
+  color: var(--panel-muted);
+}
+
+.check-list {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 28px;
+  padding: 0;
+  color: var(--panel-ink);
+  font-size: 15px;
+  list-style: none;
+}
+
+.check-list li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.check-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent-ink);
+  font-weight: 700;
+}
+
+.avito-review {
+  margin: 0;
+  padding: 8px 0 8px clamp(26px, 4vw, 52px);
+  border-left: 1px solid var(--panel-line);
+}
+
+.avito-review figcaption {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.avito-mark {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #00aaff;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.avito-review figcaption > span:last-child {
+  display: grid;
+}
+
+.avito-review figcaption strong { font-size: 14px; }
+
+.avito-review figcaption small {
+  color: var(--panel-muted);
+  font-size: 12px;
+}
+
+.avito-review blockquote {
+  margin: 34px 0 28px;
+  color: var(--panel-ink);
+  font-family: "Piazzolla", Georgia, serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.avito-review footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--panel-muted);
+  font-size: 13px;
+}
+
+.avito-review cite {
+  color: var(--panel-ink);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* --- related direction --- */
+.related-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 40px;
+  align-items: end;
+}
+
+.related-layout h2 {
+  margin-top: 10px;
+  font-size: clamp(28px, 3.4vw, 40px);
+}
+
+.related-layout .sub {
+  max-width: 45em;
+  margin-top: 14px;
+  color: var(--muted);
+}
+
+.rehab-faq .faq { max-width: 820px; }
+
+@media (max-width: 960px) {
+  .rehab-hero-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+    gap: 34px;
+  }
+
+  .rehab-case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .recovery-path { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 52px; }
+  .credential-grid { grid-template-columns: 1fr; }
+  .artromot-layout { grid-template-columns: 1fr; }
+  .avito-review { max-width: 720px; }
+}
+
+@media (max-width: 760px) {
+  .rehab-hero-grid,
+  .methods-layout,
+  .related-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .specialist-card { max-width: 520px; }
+  .related-layout { align-items: start; }
+  .related-layout .btn { justify-self: start; }
+}
+
+@media (max-width: 560px) {
+  .rehab-hero { padding-top: 38px; }
+  .rehab-hero h1 { font-size: clamp(36px, 12vw, 48px); }
+  .profile-proof { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
+  .profile-proof div:last-child { grid-column: 1 / -1; }
+  .rehab-case-grid { grid-template-columns: 1fr; }
+  .rehab-case { min-height: 0; }
+  .case-index { margin-bottom: 22px; }
+  .recovery-path { grid-template-columns: 1fr; border-top: 0; }
+  .recovery-step { padding: 0 0 30px 50px; border-left: 1px solid var(--contour); }
+  .recovery-step::before { top: 0; left: -5px; }
+  .recovery-number { margin-bottom: 16px; }
+  .method-row { grid-template-columns: 1fr; gap: 8px; }
+  .credential-link { grid-template-columns: 1fr; }
+  .credential-link > img { height: 210px; min-height: 210px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .credential-copy { min-height: 240px; }
+  .artromot-layout { gap: 48px; }
+  .avito-review { padding-left: 22px; }
+  .avito-review blockquote { font-size: 20px; }
+  .head-links { gap: 14px; }
+  .head-links a.service-link { display: none; }
+}
