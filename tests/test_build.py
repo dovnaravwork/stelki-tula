@@ -1,28 +1,103 @@
+import json
+import os
+import re
 import subprocess
 import sys
+import tempfile
 import unittest
+import xml.etree.ElementTree as ET
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parents[1]
-REHAB_PAGE = ROOT / "reabilitaciya" / "index.html"
+SITE_URL = "https://dovnaravwork.github.io/stelki-tula/"
+
+
+class SiteHTMLParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.ids = set()
+        self.references = []
+        self.canonical = None
+        self.og_url = None
+        self.jsonld = []
+        self._jsonld_chunks = None
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        attributes = dict(attrs)
+        if attributes.get("id"):
+            self.ids.add(attributes["id"])
+
+        for attribute in ("href", "src"):
+            if attributes.get(attribute):
+                self.references.append(attributes[attribute])
+
+        if tag == "link" and "canonical" in attributes.get("rel", "").split():
+            self.canonical = attributes.get("href")
+        if tag == "meta" and attributes.get("property") == "og:url":
+            self.og_url = attributes.get("content")
+        if tag == "script" and attributes.get("type") == "application/ld+json":
+            self._jsonld_chunks = []
+
+    def handle_data(self, data: str) -> None:
+        if self._jsonld_chunks is not None:
+            self._jsonld_chunks.append(data)
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script" and self._jsonld_chunks is not None:
+            self.jsonld.append(json.loads("".join(self._jsonld_chunks)))
+            self._jsonld_chunks = None
+
+
+def parse_page(path: Path) -> SiteHTMLParser:
+    parser = SiteHTMLParser()
+    parser.feed(path.read_text(encoding="utf-8"))
+    return parser
+
+
+def contrast_ratio(first: str, second: str) -> float:
+    def luminance(color: str) -> float:
+        channels = [int(color[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+        channels = [
+            channel / 12.92
+            if channel <= 0.04045
+            else ((channel + 0.055) / 1.055) ** 2.4
+            for channel in channels
+        ]
+        return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
+
+    light, dark = sorted((luminance(first), luminance(second)), reverse=True)
+    return (light + 0.05) / (dark + 0.05)
 
 
 class SiteBuildTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
+        cls._temporary_directory = tempfile.TemporaryDirectory()
+        cls.output_root = Path(cls._temporary_directory.name)
+        environment = os.environ.copy()
+        environment["SITE_OUTPUT_ROOT"] = str(cls.output_root)
         subprocess.run(
             [sys.executable, "build.py"],
             cwd=ROOT,
             check=True,
             capture_output=True,
             text=True,
+            env=environment,
         )
+        cls.home_page = cls.output_root / "index.html"
+        cls.rehab_page = cls.output_root / "reabilitaciya" / "index.html"
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls._temporary_directory.cleanup()
 
     def test_build_creates_rehabilitation_landing_page(self) -> None:
-        self.assertTrue(REHAB_PAGE.exists())
+        self.assertTrue(self.rehab_page.exists())
 
-        html = REHAB_PAGE.read_text(encoding="utf-8")
+        html = self.rehab_page.read_text(encoding="utf-8")
         self.assertIn("Восстановление после травм и операций", html)
         self.assertIn("Олег Ефимов", html)
         self.assertIn("5,0", html)
@@ -30,31 +105,77 @@ class SiteBuildTest(unittest.TestCase):
         self.assertIn('href="../"', html)
         self.assertIn("https://t.me/Ol_Kim_E", html)
 
-    def test_rehabilitation_page_uses_root_relative_shared_assets(self) -> None:
-        html = REHAB_PAGE.read_text(encoding="utf-8")
-        self.assertIn('href="../fonts/piazzolla-cyrillic.woff2"', html)
-        self.assertIn('src="../assets/oleg-efimov.jpg"', html)
-        self.assertNotIn("src=\"../foto/1.", html)
+    def test_generated_files_match_committed_github_pages_outputs(self) -> None:
+        for relative_path in (
+            Path("index.html"),
+            Path("reabilitaciya/index.html"),
+            Path("sitemap.xml"),
+        ):
+            self.assertEqual(
+                (self.output_root / relative_path).read_bytes(),
+                (ROOT / relative_path).read_bytes(),
+                f"Run python3 build.py and commit {relative_path}",
+            )
 
-    def test_sitemap_contains_both_service_pages(self) -> None:
-        sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
-        self.assertIn(
-            "https://dovnaravwork.github.io/stelki-tula/</loc>", sitemap
-        )
-        self.assertIn(
-            "https://dovnaravwork.github.io/stelki-tula/reabilitaciya/</loc>",
-            sitemap,
+    def test_all_local_page_references_and_fragments_resolve(self) -> None:
+        for generated_page in (self.home_page, self.rehab_page):
+            relative_page = generated_page.relative_to(self.output_root)
+            production_page = ROOT / relative_page
+            html = generated_page.read_text(encoding="utf-8")
+            parser = parse_page(generated_page)
+            references = parser.references + re.findall(
+                r"url\((?:[\"']?)([^)\"']+)", html
+            )
+
+            for reference in references:
+                parsed = urlparse(reference)
+                if parsed.scheme in ("http", "https", "data"):
+                    continue
+                if reference.startswith("#"):
+                    self.assertIn(reference[1:], parser.ids)
+                    continue
+
+                target = (production_page.parent / parsed.path).resolve()
+                try:
+                    target.relative_to(ROOT)
+                except ValueError:
+                    self.fail(f"Reference escapes site root: {relative_page} -> {reference}")
+                if target.is_dir():
+                    target = target / "index.html"
+                self.assertTrue(
+                    target.exists(),
+                    f"Broken local reference: {relative_page} -> {reference}",
+                )
+
+    def test_rehabilitation_metadata_uses_exact_page_url(self) -> None:
+        parser = parse_page(self.rehab_page)
+        expected_url = f"{SITE_URL}reabilitaciya/"
+        self.assertEqual(parser.canonical, expected_url)
+        self.assertEqual(parser.og_url, expected_url)
+        self.assertEqual(len(parser.jsonld), 1)
+        self.assertEqual(parser.jsonld[0]["url"], expected_url)
+        self.assertEqual(parser.jsonld[0]["provider"]["name"], "Олег Ефимов")
+
+    def test_sitemap_contains_exact_service_urls(self) -> None:
+        namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        tree = ET.parse(self.output_root / "sitemap.xml")
+        locations = [
+            element.text for element in tree.findall("s:url/s:loc", namespace)
+        ]
+        self.assertEqual(
+            locations,
+            [SITE_URL, f"{SITE_URL}reabilitaciya/"],
         )
 
     def test_rehabilitation_credentials_have_accessible_links(self) -> None:
-        html = REHAB_PAGE.read_text(encoding="utf-8")
+        html = self.rehab_page.read_text(encoding="utf-8")
         self.assertEqual(html.count('class="credential-link"'), 4)
         self.assertEqual(html.count("Открыть документ"), 4)
         self.assertIn("520 часов", html)
         self.assertIn("506 часов", html)
 
     def test_artromot_rental_is_paired_with_the_avito_review(self) -> None:
-        html = REHAB_PAGE.read_text(encoding="utf-8")
+        html = self.rehab_page.read_text(encoding="utf-8")
         section_start = html.index('id="artromot"')
         section_end = html.index("</section>", section_start)
         section = html[section_start:section_end]
@@ -64,6 +185,19 @@ class SiteBuildTest(unittest.TestCase):
         self.assertIn("всё показал, объяснил, подписали договор", section)
         self.assertIn("Роман", section)
         self.assertIn("Отзыв с Авито", section)
+
+    def test_small_text_and_panel_focus_meet_contrast_thresholds(self) -> None:
+        css = (ROOT / "src/styles.css").read_text(encoding="utf-8")
+        root_tokens = re.search(r":root\s*\{(.*?)\}", css, re.DOTALL)
+        self.assertIsNotNone(root_tokens)
+        colors = dict(re.findall(r"--([\w-]+):\s*(#[0-9A-Fa-f]{6})", root_tokens.group(1)))
+
+        self.assertGreaterEqual(contrast_ratio(colors["faint"], colors["paper"]), 4.5)
+        self.assertGreaterEqual(
+            contrast_ratio(colors["panel-focus"], colors["panel"]), 3.0
+        )
+        self.assertIn(".artromot-section :focus-visible", css)
+        self.assertIn(".contact-panel :focus-visible", css)
 
 
 if __name__ == "__main__":
