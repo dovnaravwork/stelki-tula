@@ -702,11 +702,23 @@ a { color: var(--accent); }
 }
 
 @media (max-width: 560px) {
-  .offer-grid, .ind-grid, .steps, .gallery { grid-template-columns: 1fr; }
+  .offer-grid, .ind-grid, .steps { grid-template-columns: 1fr; }
   .head-links a.vk-head { display: none; }
   .btn { width: 100%; justify-content: center; }
   .site-head .wrap { flex-wrap: wrap; justify-content: center; }
   .scan-head, .scan-foot { flex-wrap: wrap; }
+  .gallery {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-inline: contain;
+    scrollbar-color: var(--contour) transparent;
+  }
+  .work-card {
+    flex: 0 0 min(82vw, 320px);
+    scroll-snap-align: start;
+  }
   .work-card figcaption { min-height: auto; }
   .insole-credential { grid-template-columns: 88px minmax(0, 1fr); }
   .insole-credential > img { width: 88px; height: 132px; }
