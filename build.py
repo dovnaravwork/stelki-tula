@@ -2,10 +2,12 @@
 """Собирает статические страницы из src/. Запуск: python3 build.py."""
 
 import json
+import os
 import pathlib
 
 
 ROOT = pathlib.Path(__file__).parent
+OUTPUT_ROOT = pathlib.Path(os.environ.get("SITE_OUTPUT_ROOT", ROOT)).resolve()
 BASE_URL = "https://dovnaravwork.github.io/stelki-tula/"
 
 FONTS = (ROOT / "src/fonts-local.css").read_text(encoding="utf-8")
@@ -69,7 +71,7 @@ def render_page(
 def write_page(path: pathlib.Path, html: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(html, encoding="utf-8")
-    relative_path = path.relative_to(ROOT)
+    relative_path = path.relative_to(OUTPUT_ROOT)
     print(
         f"{relative_path}: {len(html.splitlines())} lines, "
         f"{len(html.encode()) / 1024:.0f} KB"
@@ -107,7 +109,7 @@ insole_html = render_page(
     styles="",
     jsonld=insole_jsonld,
 )
-write_page(ROOT / "index.html", insole_html)
+write_page(OUTPUT_ROOT / "index.html", insole_html)
 
 
 rehab_url = f"{BASE_URL}reabilitaciya/"
@@ -144,7 +146,7 @@ rehab_html = render_page(
     jsonld=rehab_jsonld,
     asset_prefix="../",
 )
-write_page(ROOT / "reabilitaciya/index.html", rehab_html)
+write_page(OUTPUT_ROOT / "reabilitaciya/index.html", rehab_html)
 
 
 sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
@@ -159,4 +161,4 @@ sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>
   </url>
 </urlset>
 '''
-(ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+(OUTPUT_ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
