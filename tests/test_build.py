@@ -210,6 +210,33 @@ class SiteBuildTest(unittest.TestCase):
         self.assertIsNotNone(document_image_rule)
         self.assertRegex(document_image_rule.group("body"), r"object-fit:\s*contain\s*;")
 
+    def test_insole_gallery_has_an_intentional_featured_composition(self) -> None:
+        html = self.home_page.read_text(encoding="utf-8")
+        css = (ROOT / "src/styles.css").read_text(encoding="utf-8")
+        feature_rule = re.search(
+            r"\.work-card--feature\s*\{(?P<body>.*?)\}",
+            css,
+            re.DOTALL,
+        )
+
+        self.assertEqual(html.count("work-card--feature"), 1)
+        self.assertIsNotNone(feature_rule)
+        self.assertRegex(feature_rule.group("body"), r"grid-row:\s*span\s+2\s*;")
+
+    def test_rehabilitation_documents_use_preview_above_description(self) -> None:
+        css = (ROOT / "src/rehabilitation.css").read_text(encoding="utf-8")
+        credential_rule = re.search(
+            r"\.credential-link\s*\{(?P<body>.*?)\}",
+            css,
+            re.DOTALL,
+        )
+
+        self.assertIsNotNone(credential_rule)
+        self.assertRegex(
+            credential_rule.group("body"),
+            r"grid-template-rows:\s*minmax\([^;]+\)\s+1fr\s*;",
+        )
+
     def test_artromot_rental_is_paired_with_the_avito_review(self) -> None:
         html = self.rehab_page.read_text(encoding="utf-8")
         section_start = html.index('id="artromot"')
