@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -396,7 +396,15 @@ a { color: var(--accent); }
 .ind-card svg { color: var(--accent); }
 
 /* --- process --- */
-.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; counter-reset: step; }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
 
 .step {
   position: relative;
@@ -528,6 +536,8 @@ a { color: var(--accent); }
 .contact-panel h2 { font-size: clamp(28px, 3.6vw, 42px); }
 
 .contact-panel .sub { color: var(--panel-muted); margin-top: 14px; max-width: 30em; }
+
+.eyebrow-panel { color: var(--panel-muted); }
 
 .contact-links { display: flex; flex-direction: column; gap: 12px; }
 
@@ -690,7 +700,7 @@ a { color: var(--accent); }
         <h2 id="proc-heading">Как проходит изготовление</h2>
         <p class="sub">Стельки делаются не «по слепку из каталога», а по вашей стопе — от осмотра до контроля после носки.</p>
       </div>
-      <ol class="steps" style="margin:0; padding:0; list-style:none;">
+      <ol class="steps">
         <li class="step reveal">
           <span class="num">1</span>
           <h3>Осмотр</h3>
@@ -807,7 +817,7 @@ a { color: var(--accent); }
     <div class="wrap">
       <div class="contact-panel">
         <div>
-          <p class="eyebrow" style="color: var(--panel-muted);">Запись · Тула</p>
+          <p class="eyebrow eyebrow-panel">Запись · Тула</p>
           <h2 id="contact-heading">Начните с осмотра</h2>
           <p class="sub">Напишите мастеру — Олег ответит, сориентирует по вашей ситуации и предложит время. Первая встреча — это разговор и осмотр, а не обязательство.</p>
         </div>

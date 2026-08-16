@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
@@ -400,7 +400,15 @@ a { color: var(--accent); }
 .ind-card svg { color: var(--accent); }
 
 /* --- process --- */
-.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; counter-reset: step; }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
 
 .step {
   position: relative;
@@ -532,6 +540,8 @@ a { color: var(--accent); }
 .contact-panel h2 { font-size: clamp(28px, 3.6vw, 42px); }
 
 .contact-panel .sub { color: var(--panel-muted); margin-top: 14px; max-width: 30em; }
+
+.eyebrow-panel { color: var(--panel-muted); }
 
 .contact-links { display: flex; flex-direction: column; gap: 12px; }
 
@@ -1068,8 +1078,17 @@ a { color: var(--accent); }
 }
 
 @media (max-width: 560px) {
+  html, body { overflow-x: hidden; }
+  .site-head .wrap { flex-direction: column; gap: 8px; }
+  .wordmark { font-size: 11px; }
+  .head-links { justify-content: center; }
   .rehab-hero { padding-top: 38px; }
-  .rehab-hero h1 { font-size: clamp(36px, 12vw, 48px); }
+  .rehab-hero-grid { display: block; }
+  .rehab-hero-copy { min-width: 0; width: 100%; }
+  .rehab-hero-copy .eyebrow { max-width: 100%; }
+  .rehab-hero h1 { max-width: 100%; font-size: clamp(34px, 10.5vw, 42px); overflow-wrap: break-word; }
+  .rehab-hero .cta-row { width: 100%; }
+  .specialist-card { margin-top: 42px; }
   .profile-proof { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
   .profile-proof div:last-child { grid-column: 1 / -1; }
   .rehab-case-grid { grid-template-columns: 1fr; }
@@ -1121,7 +1140,7 @@ a { color: var(--accent); }
           <a class="btn btn-primary" href="https://t.me/Ol_Kim_E" target="_blank" rel="noopener">Обсудить ситуацию</a>
           <a class="btn btn-ghost" href="#qualifications">Посмотреть квалификацию</a>
         </div>
-        <dl class="profile-proof" aria-label="Данные профиля Олега на Авито">
+        <dl class="profile-proof">
           <div>
             <dt>5,0</dt>
             <dd>оценка на Авито</dd>
@@ -1380,7 +1399,7 @@ a { color: var(--accent); }
     <div class="wrap">
       <div class="contact-panel">
         <div>
-          <p class="eyebrow" style="color: var(--panel-muted);">Запись · Тула</p>
+          <p class="eyebrow eyebrow-panel">Запись · Тула</p>
           <h2 id="contact-heading">Расскажите, что произошло</h2>
           <p class="sub">Напишите Олегу: кратко опишите травму или операцию, сроки и текущие ограничения. Он задаст уточняющие вопросы и предложит следующий шаг.</p>
         </div>

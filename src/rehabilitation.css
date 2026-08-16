@@ -476,8 +476,17 @@
 }
 
 @media (max-width: 560px) {
+  html, body { overflow-x: hidden; }
+  .site-head .wrap { flex-direction: column; gap: 8px; }
+  .wordmark { font-size: 11px; }
+  .head-links { justify-content: center; }
   .rehab-hero { padding-top: 38px; }
-  .rehab-hero h1 { font-size: clamp(36px, 12vw, 48px); }
+  .rehab-hero-grid { display: block; }
+  .rehab-hero-copy { min-width: 0; width: 100%; }
+  .rehab-hero-copy .eyebrow { max-width: 100%; }
+  .rehab-hero h1 { max-width: 100%; font-size: clamp(34px, 10.5vw, 42px); overflow-wrap: break-word; }
+  .rehab-hero .cta-row { width: 100%; }
+  .specialist-card { margin-top: 42px; }
   .profile-proof { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; }
   .profile-proof div:last-child { grid-column: 1 / -1; }
   .rehab-case-grid { grid-template-columns: 1fr; }

@@ -27,7 +27,7 @@ def render_page(
     fonts = FONTS.replace("url(fonts/", f"url({asset_prefix}fonts/")
     structured_data = json.dumps(jsonld, ensure_ascii=False, indent=2)
 
-    return f'''<!doctype html>
+    return f'''<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="utf-8">
